@@ -47,4 +47,31 @@ module.exports = class RecipesController {
             res.status(500).json({ message: err.message });
         }
     }
+
+    async updateRecipe(req, res) {
+        const { id, name, img, description, steps } = req.body;
+
+        if (!id) return res.status(500).json({ message: 'Documento inválido.' });
+
+        try {
+            await Recipes.findOneAndUpdate({ _id: id }, { name, img, description, steps }); 
+            return res.send();
+        } catch (err) {
+            return res.status(500).json({ message: err.message });
+        }
+    }
+
+    async deleteRecipe(req, res) {
+        const { id } = req.body;
+
+        if (!id) return res.status(500).json({ message: 'Documento inválido'});
+
+        try {
+            await Recipes.findByIdAndDelete(id);
+            res.send();
+        } catch (err) {
+            return res.status(500).json({ message: err.message});
+        }
+        
+    }
 }
