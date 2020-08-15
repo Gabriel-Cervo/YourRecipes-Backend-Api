@@ -31,7 +31,20 @@ module.exports = class RecipesController {
             results.recipes = await Recipes.find().limit(limit).skip(startIndex).exec();
             res.json(results);
         } catch (err) {   
-            res.statusCode(500).json({ message: err.message });
+            res.status(500).json({ message: err.message });
+        }
+    }
+
+    async createRecipe(req, res) {
+        const { name, img, description, steps } = req.body;
+        
+        if (!name || !img || !description || !steps) return res.status(400).json({ message: 'Preencha todos os campos!' });
+
+        try {
+            await Recipes.create({ name, img, description, steps });
+            res.send();
+        } catch (err) {
+            res.status(500).json({ message: err.message });
         }
     }
 }

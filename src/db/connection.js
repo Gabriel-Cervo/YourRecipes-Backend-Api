@@ -8,7 +8,6 @@ const db = mongoose.connection;
 db.once('open', async () => {
     if (await Recipes.countDocuments().exec() > 0) return;
 
-
     // default config para testes
     Promise.all([
         Recipes.create({
