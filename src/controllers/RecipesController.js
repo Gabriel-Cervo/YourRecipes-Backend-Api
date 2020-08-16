@@ -83,7 +83,7 @@ module.exports = class RecipesController {
     async deleteRecipe(req, res) {
         const id = req.params.id;
 
-        if (!id) return res.status(500).json({ message: 'Documento inválido'});
+        if (!id) return res.status(400).json({ message: 'Insira um id!'});
 
         try {
             const post = await Recipes.findById(id);
