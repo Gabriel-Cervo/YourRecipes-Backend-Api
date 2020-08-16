@@ -5,7 +5,6 @@ const s3 = new aws.S3();
 
 module.exports = class RecipesController {
     async index(req, res){
-
         const page = parseInt(req.query.page);
         const limit = parseInt(req.query.limit);
         
@@ -29,7 +28,7 @@ module.exports = class RecipesController {
         }
         
         try {
-            results.recipes = await Recipes.find().limit(limit).skip(startIndex).exec();
+            results.recipes = await Recipes.find({ userId: req.user._id }).limit(limit).skip(startIndex).exec();
             res.json(results);
         } catch (err) {   
             res.status(500).json({ message: err.message });
@@ -43,7 +42,7 @@ module.exports = class RecipesController {
         if (!name || !description || !steps || !req.file) return res.status(400).json({ message: 'Preencha todos os campos!' });
 
         try {
-            await Recipes.create({ name, img, description, steps, imgKey });
+            await Recipes.create({ userId: req.user._id, name, img, description, steps, imgKey });
             res.send();
         } catch (err) {
             res.status(500).json({ message: err.message });

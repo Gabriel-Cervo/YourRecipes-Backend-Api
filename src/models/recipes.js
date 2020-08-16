@@ -3,6 +3,7 @@ const aws = require('aws-sdk');
 const s3 = new aws.S3();
 
 const recipeSchema = new mongoose.Schema({
+    userId: { type: String, required: true },
     name: { type: String, required: true },
     img: { type: String, required: true },
     imgKey: { type: String, required: true },

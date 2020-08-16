@@ -1,6 +1,7 @@
 const db = require('../db/connection');
 const Users = require('../models/users');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 module.exports = class UsersController {
     async register(req, res) {
@@ -32,7 +33,8 @@ module.exports = class UsersController {
 
         try {
             if (await bcrypt.compare(password, user.password)) {
-                res.send();
+                const accessToken = jwt.sign(user.toJSON(), process.env.SECRET_ACCESS_TOKEN, { expiresIn: 86400 });
+                res.json({ accessToken });
             } else {
                 return res.status(400).json({ message: 'Senha incorreta' })
             }
