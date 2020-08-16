@@ -1,5 +1,7 @@
 const express = require('express');
 const routes = express.Router();
+const multer = require('multer');
+const multerConfig = require('./config/multer');
 const RecipesController = require('./controllers/RecipesController');
 
 const recipesController = new RecipesController();
@@ -10,8 +12,8 @@ const recipesController = new RecipesController();
 
 // recipes
 routes.get('/recipes', recipesController.index);
-routes.post('/recipes', recipesController.createRecipe);
-routes.put('/recipes', recipesController.updateRecipe);
-routes.delete('/recipes', recipesController.deleteRecipe);
+routes.post('/recipes', multer(multerConfig).single('file'), recipesController.createRecipe);
+routes.put('/recipes/:id',  multer(multerConfig).single('file'), recipesController.updateRecipe);
+routes.delete('/recipes/:id', recipesController.deleteRecipe);
 
 module.exports = routes;

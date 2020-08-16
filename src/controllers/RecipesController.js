@@ -1,5 +1,7 @@
 const db = require('../db/connection');
 const Recipes = require('../models/recipes');
+const aws = require('aws-sdk');
+const s3 = new aws.S3();
 
 module.exports = class RecipesController {
     async index(req, res){
@@ -36,12 +38,13 @@ module.exports = class RecipesController {
     }
 
     async createRecipe(req, res) {
-        const { name, img, description, steps } = req.body;
-        
-        if (!name || !img || !description || !steps) return res.status(400).json({ message: 'Preencha todos os campos!' });
+        const { name, description, steps } = req.body;
+        const { location: img, key: imgKey } = req.file;
+
+        if (!name || !description || !steps || !req.file) return res.status(400).json({ message: 'Preencha todos os campos!' });
 
         try {
-            await Recipes.create({ name, img, description, steps });
+            await Recipes.create({ name, img, description, steps, imgKey });
             res.send();
         } catch (err) {
             res.status(500).json({ message: err.message });
@@ -49,12 +52,31 @@ module.exports = class RecipesController {
     }
 
     async updateRecipe(req, res) {
-        const { id, name, img, description, steps } = req.body;
+        const id = req.params.id;
+        
+        if (!id) return res.status(500).json({ message: 'Insira um id' });
 
-        if (!id) return res.status(500).json({ message: 'Documento inválido.' });
+        const oldDoc = await Recipes.findOne({_id: id});
+
+        const img = !req.file ? req.body.img : req.file.location;
+        const imgKey = !req.file ? req.body.imgKey : req.file.key;
+
+        const { name, description, steps } = req.body;
+        
+        if (!name || !description || !steps || !img || !imgKey) return res.status(400).json({ message: 'Preencha todos os campos!' });
+
+
 
         try {
-            await Recipes.findOneAndUpdate({ _id: id }, { name, img, description, steps }); 
+            await Recipes.findOneAndUpdate({ _id: id }, { name, img, imgKey, description, steps }); 
+           
+            if (oldDoc.imgKey !== imgKey) {
+                    s3.deleteObject({
+                        Bucket: process.env.AWS_BUCKET,
+                        Key: oldDoc.imgKey
+                    }).promise();
+            }
+            
             return res.send();
         } catch (err) {
             return res.status(500).json({ message: err.message });
@@ -62,13 +84,14 @@ module.exports = class RecipesController {
     }
 
     async deleteRecipe(req, res) {
-        const { id } = req.body;
+        const id = req.params.id;
 
         if (!id) return res.status(500).json({ message: 'Documento inválido'});
 
         try {
-            await Recipes.findByIdAndDelete(id);
-            res.send();
+            const post = await Recipes.findById(id);
+            await post.remove();
+            return res.send();
         } catch (err) {
             return res.status(500).json({ message: err.message});
         }
