@@ -56,7 +56,7 @@ module.exports = class RecipesController {
         
         if (!id) return res.status(500).json({ message: 'Insira um id' });
 
-        const oldDoc = await Recipes.findOne({_id: id});
+        const oldDoc = await Recipes.findOne({ _id: id });
 
         const img = !req.file ? req.body.img : req.file.location;
         const imgKey = !req.file ? req.body.imgKey : req.file.key;
@@ -64,8 +64,6 @@ module.exports = class RecipesController {
         const { name, description, steps } = req.body;
         
         if (!name || !description || !steps || !img || !imgKey) return res.status(400).json({ message: 'Preencha todos os campos!' });
-
-
 
         try {
             await Recipes.findOneAndUpdate({ _id: id }, { name, img, imgKey, description, steps }); 
