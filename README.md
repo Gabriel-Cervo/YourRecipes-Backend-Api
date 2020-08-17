@@ -7,7 +7,9 @@
 <p align="center">
  <a href="#objetivo">Objetivo</a> •
  <a href="#tecnologias">Tecnologias</a> • 
+ <a href="#funcionalidades">Funcionalidades</a> • 
  <a href="#instalacao">Instalação</a> • 
+ <a href="#status">Status</a> • 
  <a href="#autor">Autor</a>
 </p>
 
@@ -22,7 +24,7 @@ As seguintes tecnologias foram utilizadas no projeto deste repositório:
 - [Express](https://expressjs.com/)
 - [Mongodb](https://www.mongodb.com/)
 
-## Funcionalidades
+<h2 id="funcionalidades">:clipboard: Funcionalidades</h2>
 
 ### Usuários
 
@@ -63,6 +65,9 @@ $ npm run dev
 # O servidor inciará na porta:8080 por padrão - acesse <http://localhost:8080>.
 # Se desejar utilizar em outra porta, edite a linha 16 no arquivo src/server.js, ou crie um .env e coloque PORT=<porta desejada>
 ```
+
+<h2 id="status">:grey_question: Status</h2>
+Concluído :heavy_check_mark:
 
 <h2 id="autor">Autor</h2>
 <br />
