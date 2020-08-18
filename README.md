@@ -51,7 +51,7 @@ Este projeto está dividido em dois repositórios, cada parte possui um guia com
 
 ```bash
 # Clone este repositório
-$ git clone <https://github.com/Gabriel-Cervo/YourRecipes-Backend-Api>
+$ git clone https://github.com/Gabriel-Cervo/YourRecipes-Backend-Api
 
 # Acesse a pasta do projeto no terminal/cmd
 $ cd YourRecipes-Backend-Api
@@ -62,12 +62,11 @@ $ npm install
 # Execute a aplicação no modo de desenvolvimento
 $ npm run dev
 
-# O servidor inciará na porta:8080 por padrão - acesse <http://localhost:8080>.
-# Se desejar utilizar em outra porta, edite a linha 16 no arquivo src/server.js, ou crie um .env e coloque PORT=<porta desejada>
+# O servidor inciará na porta:8080 por padrão - acesse: http://localhost:8080.
+# Se desejar utilizar em outra porta, edite a linha 16 no arquivo src/server.js, ou crie um arquivo .env e digite: PORT=porta_desejada
 ```
 
-<h2 id="status">:grey_question: Status</h2>
-Concluído :heavy_check_mark:
+<h2 id="status">Status: Concluído :heavy_check_mark:</h2>
 
 <h2 id="autor">Autor</h2>
 <br />

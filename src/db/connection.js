@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Recipes = require('../models/recipes');
 
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
