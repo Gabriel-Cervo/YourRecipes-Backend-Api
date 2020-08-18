@@ -59,7 +59,7 @@ $ cd YourRecipes-Backend-Api
 # Instale as dependências
 $ npm install
 
-# Aviso! Antes da execução, é necessário em que aja um arquivo .env contendo as informações do seu amazon S3, de sua database, e um secret_access_token para o JWT.
+# Aviso! Antes da execução, é necessário em que haja um arquivo .env contendo as informações do seu amazon S3, de sua database, e um secret_access_token para o JWT.
 # Exemplo:
 # DATABASE_URL=<LINK_DE_SUA_DATABASE>
 # AWS_ACCESS_KEY_ID=<SUA_ACCESS_KEY_ID>
