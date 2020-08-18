@@ -4,7 +4,7 @@ const multer = require('multer');
 const multerConfig = require('./config/multer');
 const RecipesController = require('./controllers/RecipesController');
 const UsersController = require('./controllers/UsersController');
-const authenticateToken = require('./utils/auth');
+const authenticateToken = require('./config/auth');
 
 const recipesController = new RecipesController();
 const usersController = new UsersController();
