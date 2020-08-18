@@ -43,7 +43,7 @@ As seguintes tecnologias foram utilizadas no projeto deste repositório:
 
 ### Pré-requisitos
 
-Antes de começar, você vai precisar ter o [Git](https://git-scm.com) e o [NPM](https://www.npmjs.com/) instalados em sua máquina.
+Antes de começar, você vai precisar ter o [Git](https://git-scm.com) e o [NPM](https://www.npmjs.com/) instalados em sua máquina, além de uma conta no Amazon AWS com S3 para armazenar as imagens das receitas.
 
 Este projeto está dividido em dois repositórios, cada parte possui um guia com sua respectiva instalação.
 
@@ -59,11 +59,20 @@ $ cd YourRecipes-Backend-Api
 # Instale as dependências
 $ npm install
 
+#Aviso! Antes da execução, é necessário em que aja um arquivo .env contendo as informações do seu amazon S3, de sua database, e um secret_access_token para o JWT.
+#Exemplo:
+#DATABASE_URL=<LINK_DE_SUA_DATABASE>
+#AWS_ACCESS_KEY_ID=<SUA_ACCESS_KEY_ID>
+#AWS_SECRET_ACCESS_KEY=<SUA_SECRET_KEY>
+#AWS_DEFAULT_REGION=<REGIAO_DO_SEU_S3>
+#AWS_BUCKET=<NOME_BUCKET>
+#SECRET_ACCESS_TOKEN=<TOKEN_JWT>
+
 # Execute a aplicação no modo de desenvolvimento
 $ npm run dev
 
 # O servidor inciará na porta:8080 por padrão - acesse: http://localhost:8080.
-# Se desejar utilizar em outra porta, edite a linha 16 no arquivo src/server.js, ou crie um arquivo .env e digite: PORT=porta_desejada
+# Se desejar utilizar em outra porta, edite a linha 16 no arquivo src/server.js, ou no arquivo .env digite: PORT=<porta_desejada>
 ```
 
 <h2 id="status">Status: Concluído :heavy_check_mark:</h2>
