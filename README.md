@@ -14,7 +14,7 @@
 </p>
 
 <h2 id="objetivo">:dart: Objetivo</h2>
-O objetivo do projeto é auxiliar pessoas a guardarem com facilidade suas receitas. Eu particularmente gosto bastante de cozinhar, então este projeto serve para resolver o meu problema e me dar mais experiência com a stack MERN. Este projeto está dividido em Backend e Frontend, sendo este em outro repositório a fim de separar os conceitos e facilitar integração da APi em outros sistemas e desacoplar o sistema. 
+O objetivo do projeto é auxiliar pessoas a guardarem com facilidade suas receitas. Eu particularmente gosto bastante de cozinhar, então este projeto serve para resolver o meu problema e me dar mais experiência com a stack MERN. Este projeto está dividido em Backend e Frontend, sendo este ultimo em outro repositório a fim de separar os conceitos e facilitar integração da APi em outros sistemas.
 
 <h2 id="tecnologias">:wrench: Tecnologias</h2>
 

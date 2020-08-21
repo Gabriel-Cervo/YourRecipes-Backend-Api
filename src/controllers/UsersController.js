@@ -9,14 +9,20 @@ module.exports = class UsersController {
 
         if (!name || !email || !password) return res.status(400).json({ message: 'Preencha todos os campos!' });
 
+        const foundEmail = await Users.findOne({ email }).exec();
+
+        if (foundEmail) return res.status(400).json({ message: 'Email ja cadastrado!' });
+
         try {
             const hashedPassword = await bcrypt.hash(password, 10);
             
             const user = { name, email, password: hashedPassword }
             
-            await Users.create(user);
+            const createdUser = await Users.create(user);
             
-            res.send();
+            const accessToken = jwt.sign(createdUser.toJSON(), process.env.SECRET_ACCESS_TOKEN, { expiresIn: 86400 });
+
+            res.json({ accessToken, username: createdUser.name });
         } catch(err) {
             return res.status(500).send();
         }
@@ -29,17 +35,17 @@ module.exports = class UsersController {
 
         const user = await Users.findOne({ email }).exec();
 
-        if (!user) return res.status(400).json({ message: 'Email não encontrado' })
+        if (!user) return res.status(401).json({ message: 'Email não encontrado' })
 
         try {
             if (await bcrypt.compare(password, user.password)) {
                 const accessToken = jwt.sign(user.toJSON(), process.env.SECRET_ACCESS_TOKEN, { expiresIn: 86400 });
-                res.json({ accessToken });
+                res.json({ accessToken, username: user.name });
             } else {
-                return res.status(400).json({ message: 'Senha incorreta' })
+                return res.status(401).json({ message: 'Senha incorreta' })
             }
         } catch (err) {
-            return res.status(500).send();
+            return res.status(500).json({ message: 'Algo deu errado, tente novamente' });
         }
 
     }
