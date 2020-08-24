@@ -22,7 +22,7 @@ module.exports = class UsersController {
             
             const accessToken = jwt.sign(createdUser.toJSON(), process.env.SECRET_ACCESS_TOKEN, { expiresIn: 86400 });
 
-            res.json({ accessToken, username: createdUser.name });
+            res.status(201).json({ accessToken, username: createdUser.name });
         } catch(err) {
             return res.status(500).send();
         }
@@ -40,7 +40,7 @@ module.exports = class UsersController {
         try {
             if (await bcrypt.compare(password, user.password)) {
                 const accessToken = jwt.sign(user.toJSON(), process.env.SECRET_ACCESS_TOKEN, { expiresIn: 86400 });
-                res.json({ accessToken, username: user.name });
+                res.status(200).json({ accessToken, username: user.name });
             } else {
                 return res.status(401).json({ message: 'Senha incorreta' })
             }

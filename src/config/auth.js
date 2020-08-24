@@ -10,7 +10,7 @@ module.exports = function authenticateToken(req, res, next) {
 
     jwt.verify(token, process.env.SECRET_ACCESS_TOKEN, (err, user) => {
         if (err) return res.status(403).json({ message: "Token invalido ou expirado. Por favor faça o login novamente" });
-        req.user = user
+        req.user = user;
         next();
     });
 
