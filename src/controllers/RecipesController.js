@@ -13,7 +13,7 @@ module.exports = class RecipesController {
 
         const results = {}
 
-        if (endIndex < Recipes.countDocuments().exec()) {
+        if (endIndex < Recipes.countDocuments({ userId: req.user._id }).exec()) {
             results.next = {
                 page: page + 1,
                 limit: limit
@@ -43,7 +43,7 @@ module.exports = class RecipesController {
 
         try {
             await Recipes.create({ userId: req.user._id, name, img, description, steps, imgKey });
-            res.send();
+            res.status(201).send();
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
