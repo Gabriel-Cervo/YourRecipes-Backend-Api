@@ -12,8 +12,8 @@ const usersController = new UsersController();
 // recipes
 routes.get('/recipes', authenticateToken, recipesController.index);
 routes.post('/recipes', multer(multerConfig).single('file'), authenticateToken, recipesController.createRecipe);
-routes.put('/recipes/:id', multer(multerConfig).single('file'), recipesController.updateRecipe);
-routes.delete('/recipes/:id', recipesController.deleteRecipe);
+routes.put('/recipes/:id', multer(multerConfig).single('file'), authenticateToken, recipesController.updateRecipe);
+routes.delete('/recipes/:id', authenticateToken, recipesController.deleteRecipe);
 
 // users
 routes.post('/users/register', usersController.register);

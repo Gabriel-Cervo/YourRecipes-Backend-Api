@@ -16,6 +16,11 @@ module.exports = class RecipesController {
         const results = {}
 
         Recipes.countDocuments({ userId }, (err, count) => {
+            if (err) return res.status(500).json({ message: err.message });
+
+
+            results.total = count;
+
             if (endIndex < count) {
                 results.next = {
                     page: page + 1
@@ -39,12 +44,13 @@ module.exports = class RecipesController {
 
     async createRecipe(req, res) {
         const { name, description, steps } = req.body;
-        const { location: img, key: imgKey } = req.file;
+        const { location: img, key: imgKey } = req.file;v
+        const userId = req.user._id;
 
         if (!name || !description || !steps || !req.file) return res.status(400).json({ message: 'Preencha todos os campos!' });
 
         try {
-            await Recipes.create({ userId: req.user._id, name, img, description, steps, imgKey });
+            await Recipes.create({ userId, name, img, description, steps, imgKey });
             res.status(201).send();
         } catch (err) {
             res.status(500).json({ message: err.message });
