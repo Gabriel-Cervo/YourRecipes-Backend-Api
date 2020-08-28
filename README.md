@@ -36,6 +36,7 @@ As seguintes tecnologias foram utilizadas no projeto deste repositório:
 
 - Cadastrar nova receita;
 - Listar receitas do usuário logado;
+- Ver detalhes da receita de escolha;
 - Editar receitas;
 - Deletar receitas;
 
