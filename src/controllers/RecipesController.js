@@ -48,13 +48,14 @@ module.exports = class RecipesController {
         if (!id) return res.status(500).json({ message: 'Insira um id' });
 
         const recipe = await Recipes.findOne({ _id: id });
-
+        
         return res.json(recipe);
     }
 
     async createRecipe(req, res) {
-        const { name, description, steps } = req.body;
+        const { name, description } = req.body;
         const { location: img, key: imgKey } = req.file;
+        const steps = JSON.parse(req.body.steps);
         const userId = req.user._id;
 
         if (!name || !description || !steps || !req.file) return res.status(400).json({ message: 'Preencha todos os campos!' });
