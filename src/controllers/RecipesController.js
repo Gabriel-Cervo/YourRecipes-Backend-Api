@@ -55,7 +55,7 @@ module.exports = class RecipesController {
     async createRecipe(req, res) {
         const { name, description } = req.body;
         const { location: img, key: imgKey } = req.file;
-        const steps = JSON.parse(req.body.steps);
+        const steps = req.body.steps;
         const userId = req.user._id;
 
         if (!name || !description || !steps || !req.file) return res.status(400).json({ message: 'Preencha todos os campos!' });
